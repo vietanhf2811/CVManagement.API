@@ -5,8 +5,6 @@ VisualStudioVersion = 17.14.37411.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVManagement.API", "CVManagement.API\CVManagement.API.csproj", "{1DD0D522-DEBF-4002-969A-8B66DAA0A9CE}"
 EndProject
-EndProject
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVManagement.Infrastructure", "CVManagement.Infrastructure\CVManagement.Infrastructure.csproj", "{5EB3FC23-B4F6-4B94-BC2E-64CDDFC4C6FE}"
 EndProject
 Global
@@ -19,6 +17,10 @@ Global
 		{1DD0D522-DEBF-4002-969A-8B66DAA0A9CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DD0D522-DEBF-4002-969A-8B66DAA0A9CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DD0D522-DEBF-4002-969A-8B66DAA0A9CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EB3FC23-B4F6-4B94-BC2E-64CDDFC4C6FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EB3FC23-B4F6-4B94-BC2E-64CDDFC4C6FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EB3FC23-B4F6-4B94-BC2E-64CDDFC4C6FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EB3FC23-B4F6-4B94-BC2E-64CDDFC4C6FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
