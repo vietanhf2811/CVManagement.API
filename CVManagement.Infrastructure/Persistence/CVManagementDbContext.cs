@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using CVManagement.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
+using ApplicationEntity = global::CVManagement.Domain.Entities.Application;
+
 namespace CVManagement.Infrastructure.Persistence;
 
 public partial class CVManagementDbContext : DbContext
@@ -13,7 +15,7 @@ public partial class CVManagementDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Application> Applications { get; set; }
+    public virtual DbSet<ApplicationEntity> Applications { get; set; }
 
     public virtual DbSet<ApplicationHistory> ApplicationHistories { get; set; }
 
@@ -37,7 +39,7 @@ public partial class CVManagementDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Application>(entity =>
+        modelBuilder.Entity<ApplicationEntity>(entity =>
         {
             entity.HasIndex(e => new { e.CandidateId, e.AppliedAt }, "IX_Applications_Candidate_AppliedAt").IsDescending(false, true);
 
