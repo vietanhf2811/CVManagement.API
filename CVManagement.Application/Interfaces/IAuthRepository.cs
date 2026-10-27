@@ -9,6 +9,6 @@ namespace CVManagement.Application.Interfaces
 {
     public interface IAuthRepository
     {
-        Task<User?> GetByEmailAsync( string email,CancellationToken cancellationToken = default);
+        Task<User?> GetUserForLoginAsync( string email,CancellationToken cancellationToken = default);
     }
 }

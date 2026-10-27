@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CVManagement.Application.Services
 {
-    internal class RegistrationService : IRegistrationService
+    public class RegistrationService : IRegistrationService
     {
         private const string CandidateRoleName = "Candidate";
 

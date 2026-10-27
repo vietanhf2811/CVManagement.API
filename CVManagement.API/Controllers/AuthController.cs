@@ -1,6 +1,7 @@
 ﻿
 using CVManagement.Application.DTOs.Auth;
 using CVManagement.Application.Interfaces;
+using CVManagement.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CVManagement.API.Controllers;
@@ -10,11 +11,12 @@ namespace CVManagement.API.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IRegistrationService _registrationService;
-
+    private readonly IAuthService _authService;
     public AuthController(
-        IRegistrationService registrationService)
+        IRegistrationService registrationService, IAuthService authService)
     {
         _registrationService = registrationService;
+        _authService = authService;
     }
 
     [HttpPost("register")]
@@ -32,6 +34,28 @@ public class AuthController : ControllerBase
         catch (InvalidOperationException)
         {
             return Problem(statusCode: StatusCodes.Status500InternalServerError, title: "Registration Configuration Error", detail: "Unable to register the account at this time.");
+        }
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(
+        [FromBody] LoginRequestDto request,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            var result = await _authService.LoginAsync(
+                request,
+                cancellationToken);
+
+            return Ok(result);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized(new
+            {
+                message = "Invalid email or password."
+            });
         }
     }
 }

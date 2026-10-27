@@ -14,7 +14,7 @@ public class AuthRepository : IAuthRepository
         _context = context;
     }
 
-    public Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
+    public Task<User?> GetUserForLoginAsync(string email, CancellationToken cancellationToken = default)
     {
         return _context.Users.Include(u => u.Role).AsNoTracking().FirstOrDefaultAsync(u => u.Email == email,cancellationToken);
     }
