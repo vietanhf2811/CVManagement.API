@@ -1,32 +1,33 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+using CVManagement.Application.Interfaces;
+using CVManagement.Application.Settings;
+using CVManagement.Domain.Entities;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using CVManagement.Application.Interfaces;
-using CVManagement.Domain.Entities;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CVManagement.Infrastructure.Services;
 
 public class JwtTokenService : IJwtTokenService
 {
-    private readonly IConfiguration _configuration;
+    private readonly JwtSettings _jwtSettings;
 
-    public JwtTokenService(IConfiguration configuration)
+    public JwtTokenService(IOptions<JwtSettings> jwtOptions)
     {
-        _configuration = configuration;
+        _jwtSettings = jwtOptions.Value;
     }
 
     public string GenerateToken(User user, string roleName)
     {
-        var secretKey = _configuration["Jwt:Key"]
-            ?? throw new InvalidOperationException("JWT key is not configured.");
+        if (string.IsNullOrEmpty(_jwtSettings.Key))
+            throw new InvalidOperationException("JWT key is not configured.");
 
-        var issuer = _configuration["Jwt:Issuer"]
-            ?? throw new InvalidOperationException("JWT issuer is not configured.");
+        if (string.IsNullOrEmpty(_jwtSettings.Issuer))
+            throw new InvalidOperationException("JWT issuer is not configured.");
 
-        var audience = _configuration["Jwt:Audience"]
-            ?? throw new InvalidOperationException("JWT audience is not configured.");
+        if (string.IsNullOrEmpty(_jwtSettings.Audience))
+            throw new InvalidOperationException("JWT audience is not configured.");
 
         var claims = new[]
         {
@@ -37,17 +38,17 @@ public class JwtTokenService : IJwtTokenService
         };
 
         var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(secretKey));
+            Encoding.UTF8.GetBytes(_jwtSettings.Key));
 
         var credentials = new SigningCredentials(
             key,
             SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            issuer: issuer,
-            audience: audience,
+            issuer: _jwtSettings.Issuer,
+            audience: _jwtSettings.Audience,
             claims: claims,
-            expires: DateTime.UtcNow.AddHours(2),
+            expires: DateTime.UtcNow.AddMinutes(_jwtSettings.AccessTokenExpirationMinutes),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);

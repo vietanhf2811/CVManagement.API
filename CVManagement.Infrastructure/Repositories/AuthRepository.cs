@@ -18,4 +18,14 @@ public class AuthRepository : IAuthRepository
     {
         return _context.Users.Include(u => u.Role).AsNoTracking().FirstOrDefaultAsync(u => u.Email == email,cancellationToken);
     }
+
+    public async Task<User?> GetActiveUserByIdAsync( int userId,CancellationToken cancellationToken = default)
+    {
+        return await _context.Users
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(
+                u => u.Id == userId && u.IsActive,
+                cancellationToken);
+    }
+
 }
