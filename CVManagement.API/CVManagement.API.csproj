@@ -8,9 +8,17 @@
 
   <ItemGroup>
     <Compile Remove="DTOs\**" />
+    <Compile Remove="Extensions\**" />
+    <Compile Remove="Middlewares\**" />
     <Content Remove="DTOs\**" />
+    <Content Remove="Extensions\**" />
+    <Content Remove="Middlewares\**" />
     <EmbeddedResource Remove="DTOs\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <EmbeddedResource Remove="Middlewares\**" />
     <None Remove="DTOs\**" />
+    <None Remove="Extensions\**" />
+    <None Remove="Middlewares\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,11 +29,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.12" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Middlewares\" />
-    <Folder Include="Extensions\" />
   </ItemGroup>
 
   <ItemGroup>

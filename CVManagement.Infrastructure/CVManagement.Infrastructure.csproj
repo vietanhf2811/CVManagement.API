@@ -7,8 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DependencyInjection\" />
-    <Folder Include="Services\" />
+    <Compile Remove="DependencyInjection\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="DependencyInjection\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="DependencyInjection\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Persistence\" />
   </ItemGroup>
 

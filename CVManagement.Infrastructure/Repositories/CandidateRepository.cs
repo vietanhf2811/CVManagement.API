@@ -6,9 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVManagement.Infrastructure.Repositories
 {
-    public class CandidateReponsitory : ICandidateRepository
+    public class CandidateRepository : ICandidateRepository
     {
         private readonly CVManagementDbContext _context;
+        public CandidateRepository(CVManagementDbContext context)
+        {
+            _context = context;
+        }
         public async Task<CandidateProfileDto> GetProfileAsync(long userid)
         {
             var candidate = await _context.Candidates
